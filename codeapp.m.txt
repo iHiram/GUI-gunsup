@@ -1,0 +1,129 @@
+classdef gunsUp < matlab.apps.AppBase
+
+    % Properties that correspond to app components
+    properties (Access = public)
+        UIFigure              matlab.ui.Figure
+        last_img              matlab.ui.control.Image
+        AcProcess_img         matlab.ui.control.Image
+        UITable               matlab.ui.control.Table
+        Ac_img                matlab.ui.control.Image
+        MenuPanel             matlab.ui.container.Panel
+        InicioButton          matlab.ui.control.StateButton
+        iniciadoCheckBox      matlab.ui.control.CheckBox
+        Lamp                  matlab.ui.control.Lamp
+        FuncionDropDown       matlab.ui.control.DropDown
+        FuncionDropDownLabel  matlab.ui.control.Label
+    end
+
+    % Callbacks that handle component events
+    methods (Access = private)
+
+        % Code that executes after component creation
+        function startupFcn(app)
+           import Municion_Cls.*
+        end
+
+        % Value changed function: InicioButton
+        function InicioButtonValueChanged(app, event)
+            value = app.InicioButton.Value;
+            inicio=get(app.iniciadoCheckBox, 'Value');
+            display(inicio)
+            Municion_Cls.init(app,value,inicio);
+        end
+    end
+
+    % Component initialization
+    methods (Access = private)
+
+        % Create UIFigure and components
+        function createComponents(app)
+
+            % Create UIFigure and hide until all components are created
+            app.UIFigure = uifigure('Visible', 'off');
+            app.UIFigure.Position = [100 100 640 480];
+            app.UIFigure.Name = 'MATLAB App';
+
+            % Create MenuPanel
+            app.MenuPanel = uipanel(app.UIFigure);
+            app.MenuPanel.TitlePosition = 'centertop';
+            app.MenuPanel.Title = 'Menu';
+            app.MenuPanel.Position = [9 302 337 170];
+
+            % Create FuncionDropDownLabel
+            app.FuncionDropDownLabel = uilabel(app.MenuPanel);
+            app.FuncionDropDownLabel.HorizontalAlignment = 'right';
+            app.FuncionDropDownLabel.Position = [28 112 47 22];
+            app.FuncionDropDownLabel.Text = 'Funcion';
+
+            % Create FuncionDropDown
+            app.FuncionDropDown = uidropdown(app.MenuPanel);
+            app.FuncionDropDown.Items = {'Municion', 'Cambiar cartas', 'Comprar cartas'};
+            app.FuncionDropDown.Position = [90 112 240 22];
+            app.FuncionDropDown.Value = 'Municion';
+
+            % Create Lamp
+            app.Lamp = uilamp(app.MenuPanel);
+            app.Lamp.Position = [310 148 20 20];
+
+            % Create iniciadoCheckBox
+            app.iniciadoCheckBox = uicheckbox(app.MenuPanel);
+            app.iniciadoCheckBox.Text = 'iniciado?';
+            app.iniciadoCheckBox.Position = [90 70 70 22];
+
+            % Create InicioButton
+            app.InicioButton = uibutton(app.MenuPanel, 'state');
+            app.InicioButton.ValueChangedFcn = createCallbackFcn(app, @InicioButtonValueChanged, true);
+            app.InicioButton.Text = 'Inicio';
+            app.InicioButton.Position = [233 9 100 22];
+
+            % Create Ac_img
+            app.Ac_img = uiimage(app.UIFigure);
+            app.Ac_img.Position = [345 323 288 149];
+
+            % Create UITable
+            app.UITable = uitable(app.UIFigure);
+            app.UITable.ColumnName = {'Column 1'; 'Column 2'};
+            app.UITable.RowName = {};
+            app.UITable.Position = [9 21 333 256];
+
+            % Create AcProcess_img
+            app.AcProcess_img = uiimage(app.UIFigure);
+            app.AcProcess_img.Position = [345 172 288 140];
+
+            % Create last_img
+            app.last_img = uiimage(app.UIFigure);
+            app.last_img.Position = [345 21 288 140];
+
+            % Show the figure after all components are created
+            app.UIFigure.Visible = 'on';
+        end
+    end
+
+    % App creation and deletion
+    methods (Access = public)
+
+        % Construct app
+        function app = gunsUp
+
+            % Create UIFigure and components
+            createComponents(app)
+
+            % Register the app with App Designer
+            registerApp(app, app.UIFigure)
+
+            % Execute the startup function
+            runStartupFcn(app, @startupFcn)
+
+            if nargout == 0
+                clear app
+            end
+        end
+
+        % Code that executes before app deletion
+        function delete(app)
+
+            % Delete UIFigure when app is deleted
+            delete(app.UIFigure)
+        end
+    end
+end
