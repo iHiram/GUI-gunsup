@@ -30,7 +30,7 @@ classdef Municion_Cls
             NoLog=24526;
             lastActivity="Inicio";
             prelastActivity="Inicio";
-            AcercaInforme = rgb2gray(imread("C:/Users/HiramGamiz/Documents/GIT/Matlab/GUI gunsup/img/AcercaInforme.jpg"));
+            AcercaInforme = gpuArray(rgb2gray(imread("C:/Users/HiramGamiz/Documents/GIT/Matlab/GUI gunsup/img/AcercaInforme.jpg")));
             AcercaInforme=wiener2(AcercaInforme,[80 80]);
             AcercaInforme=edge(AcercaInforme,'sobel');
             
@@ -139,25 +139,6 @@ classdef Municion_Cls
                         late=late+1;
                     end
                     NoLog=NoLog+1;
-                    display("---dt----INICIO---------- Log:"+NoLog+" -- LastActivity: "+lastActivity+" -- preLastActivity: "+prelastActivity);
-                    display("T_MP "+T_MP);
-                    display("T_MBs "+T_MBs);
-                    display("T_BT "+T_BT);
-                    display("T_END "+T_END);
-                    display("T_ENDwin "+T_ENDwin);
-                    display("T_Oleada "+T_Oleada);
-                    display("T_FinOleada "+T_FinOleada);
-                    display("T_Evento "+T_Evento);
-                    display("T_PP "+T_PP);
-                    display("T_MenuPS "+T_MenuPS);
-                    display("T_Soldados "+T_Soldados);
-                    display("T_Ataquetome "+T_Ataquetome);
-                    display("T_ErrorApp "+T_ErrorApp);
-                    display("T_AcercaInforme "+T_AcercaInforme);
-                    display(":::::::::::::::::::::::::::::::::");
-                    display("-------Fin---------- Log:"+NoLog+" -- LastActivity: "+lastActivity+" -- preLastActivity: "+prelastActivity);
-                    display("Elapsed time is "+ toc +" seconds.");
-                    display(late)
                     if(none==true)
                         % fwrite(device,'A')
                         display("none battaaaa");
@@ -242,7 +223,7 @@ classdef Municion_Cls
                     %    T_MP_sol = ssim(MP_sol,snapshot1);
                     %  T_Oleada_derrota=0;
                     
-                    T_MP= (ssim(MP,snapshot1));
+                    T_MP= gpuArray(ssim(MP,snapshot1));
                     if(T_MP > (0.89) || T_MenuPS > (0.93) || T_ErrorApp > (0.93))
                         
                         % fwrite(device,'N')
@@ -250,14 +231,13 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_MP VK_V");
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_MP "+ T_MP +" "+"T_MenuPS "+ T_MenuPS +" "+"T_ErrorApp "+ T_ErrorApp;
                         dtLastAct=now;
                         none=false;rob.keyRelease(KeyEvent.VK_F);
                         T_MenuPS=0;
                         T_ErrorApp=0;
                         break;
                     end
-                    T_MBs= (ssim(MBs,snapshot1));
+                    T_MBs= gpuArray(ssim(MBs,snapshot1));
                     if(T_MBs > (0.9))
                         %  fwrite(device,'N')
                         rob.keyPress(KeyEvent.VK_2  )
@@ -309,7 +289,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -335,7 +315,7 @@ classdef Municion_Cls
                     else
                         %fwrite(device,'B')
                     end
-                    %    T_BT= (ssim(BT,snapshot1));
+                    %    T_BT= gpuArray(ssim(BT,snapshot1));
                     %
                     %       if(T_BT > (0.91))
                     %         none=true;
@@ -345,8 +325,8 @@ classdef Municion_Cls
                     %
                     %     end
                     
-                    T_END= (ssim(END,snapshot1));
-                    T_ENDwin= (ssim(ENDwin,snapshot1));
+                    T_END= gpuArray(ssim(END,snapshot1));
+                    T_ENDwin= gpuArray(ssim(ENDwin,snapshot1));
                     if(T_END > (0.94) || T_ENDwin> (0.94))
                         %   fwrite(device,'N')
                         rob.keyPress(KeyEvent.VK_V  )
@@ -354,12 +334,11 @@ classdef Municion_Cls
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_END VK_V");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_END "+ T_END +" "+"T_ENDwin "+ T_ENDwin;
                         dtLastAct=now;
                         break;
                     end
                     
-                    T_Oleada= (ssim(Oleada,snapshot1));
+                    T_Oleada= gpuArray(ssim(Oleada,snapshot1));
                     if(T_Oleada > (0.92))
                         %  fwrite(device,'N')
                         none=true;
@@ -367,12 +346,11 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_Oleada VK_V");
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_Oleada "+ T_Oleada ;
                         dtLastAct=now;
                         break;
                     end
                     
-                    T_FinOleada= (ssim(FinOleada,snapshot1));
+                    T_FinOleada= gpuArray(ssim(FinOleada,snapshot1));
                     if(T_FinOleada > (0.93))
                         %   fwrite(device,'N')
                         rob.keyPress(KeyEvent.VK_V  )
@@ -380,7 +358,6 @@ classdef Municion_Cls
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_FinOleada VK_V");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_FinOleada "+ T_FinOleada ;
                         dtLastAct=now;
                         break;
                     end
@@ -405,7 +382,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -432,14 +409,13 @@ classdef Municion_Cls
                     else
                         %fwrite(device,'B')
                     end
-                    T_Evento= (ssim(Evento,snapshot1));
+                    T_Evento= gpuArray(ssim(Evento,snapshot1));
                     if(T_Evento > (0.92) || T_PP > (0.89643) || T_AcercaInforme > (0.92))
                         rob.keyPress(KeyEvent.VK_C)
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_C   )
                         display("T_Evento VK_C");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_Evento "+ T_Evento +" "+"T_PP "+ T_PP +" "+"T_AcercaInforme "+ T_AcercaInforme;
                         dtLastAct=now;
                         if(T_PP> (0.89643))
                             pause(0.5);
@@ -467,7 +443,6 @@ classdef Municion_Cls
                         pause(0.1);
                         display("T_Soldados VK_C");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_Soldados "+ T_Soldados +" "+"T_Ataquetome "+ T_Ataquetome;
                         dtLastAct=now;
                         T_Soldados=0;
                         T_Ataquetome=0;
@@ -495,12 +470,12 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_R   )
-                        pause(0.1);
+                        pause(0.1);r
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_R   )
@@ -521,17 +496,15 @@ classdef Municion_Cls
                     else
                         %fwrite(device,'B')
                     end
-                    T_PP=(ssim(PP,snapshot1));
-                    T_MenuPS= (ssim(MenuPS,snapshot1));
-                    T_Soldados= (ssim(Soldados,snapshot1));
-                    T_Ataquetome= (ssim(Ataquetome,snapshot1));
-                    T_ErrorApp= (ssim(ErrorApp,snapshot1));
-                    T_AcercaInforme=(ssim(AcercaInforme,snapshot1));
+                    T_PP= gpuArray(ssim(PP,snapshot1));
+                    T_MenuPS= gpuArray(ssim(MenuPS,snapshot1));
+                    T_Soldados= gpuArray(ssim(Soldados,snapshot1));
+                    T_Ataquetome= gpuArray(ssim(Ataquetome,snapshot1));
+                    T_ErrorApp= gpuArray(ssim(ErrorApp,snapshot1));
                     display("-----------FIN-----------------");
                     toc
                 end
                 toc
-                display("-------Fin---------- Log:"+NoLog+" -- LastActivity: "+lastActivity+" -- preLastActivity: "+prelastActivity);
                 display("Elapsed time is "+ toc +" seconds.");
                 display("Minutes ");
                 display(dt);
