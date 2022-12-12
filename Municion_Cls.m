@@ -4,7 +4,6 @@ classdef Municion_Cls
             
             import java.awt.*;
             import java.awt.event.*;
-            import getItems.*;
             rob=Robot;
             if(inicio==1)
                 
@@ -14,8 +13,6 @@ classdef Municion_Cls
                 none=false;rob.keyRelease(KeyEvent.VK_F);
             end
             
-            display("ssssssssss");
-            job = batch('getItems');
             T_MP=0;
             T_MBs=0;
             T_BT=0;
@@ -118,7 +115,6 @@ classdef Municion_Cls
                     t1 = now;
                     dt = t1 - dtLastAct
                     display(dt);
-                    
                     if(dt > 0.024232)
                         display("late ");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
@@ -146,6 +142,7 @@ classdef Municion_Cls
                     display("---dt----INICIO---------- Log:"+NoLog+" -- LastActivity: "+lastActivity+" -- preLastActivity: "+prelastActivity);
                     display("T_MP "+T_MP);
                     display("T_MBs "+T_MBs);
+                    display("T_BT "+T_BT);
                     display("T_END "+T_END);
                     display("T_ENDwin "+T_ENDwin);
                     display("T_Oleada "+T_Oleada);
@@ -264,7 +261,7 @@ classdef Municion_Cls
                     if(T_MBs > (0.9))
                         %  fwrite(device,'N')
                         rob.keyPress(KeyEvent.VK_2  )
-                        pause(0.18);
+                        pause(0.3);
                         rob.keyRelease(KeyEvent.VK_2  )
                         display("T_MBs VK_2");
                         pause(0.3);
@@ -276,7 +273,7 @@ classdef Municion_Cls
                         pause(0.1);
                         none=false;rob.keyRelease(KeyEvent.VK_F);
                         rob.keyPress(KeyEvent.VK_2  )
-                        pause(0.18);
+                        pause(0.3);
                         rob.keyRelease(KeyEvent.VK_2  )
                         display(" VK_2");
                         pause(0.3);
@@ -291,6 +288,63 @@ classdef Municion_Cls
                         dtLastAct=now;
                         break;
                     end
+                    if(none==true)
+                        % fwrite(device,'A')
+                        display("none battaaaa");
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_F   )
+                        pause(0.1);
+                       
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        pause(0.1);
+                        rob.keyPress(KeyEvent.VK_R  )
+                        pause(0.1);
+                        rob.keyRelease(KeyEvent.VK_R   )
+                        display(" VK_R");
+                        pause(0.1);
+                    else
+                        %fwrite(device,'B')
+                    end
+                    %    T_BT= (ssim(BT,snapshot1));
+                    %
+                    %       if(T_BT > (0.91))
+                    %         none=true;
+                    %         %  fwrite(device,'A')
+                    %         display("T_BT ifffffffff");
+                    %
+                    %
+                    %     end
+                    
                     T_END= (ssim(END,snapshot1));
                     T_ENDwin= (ssim(ENDwin,snapshot1));
                     if(T_END > (0.94) || T_ENDwin> (0.94))
@@ -300,8 +354,6 @@ classdef Municion_Cls
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_END VK_V");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        delete(job);
-                        clear job
                         lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_END "+ T_END +" "+"T_ENDwin "+ T_ENDwin;
                         dtLastAct=now;
                         break;
@@ -328,8 +380,6 @@ classdef Municion_Cls
                         rob.keyRelease(KeyEvent.VK_V  )
                         display("T_FinOleada VK_V");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        delete(job);
-                        clear job
                         lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_FinOleada "+ T_FinOleada ;
                         dtLastAct=now;
                         break;
@@ -355,7 +405,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                        
+                       
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -383,23 +433,18 @@ classdef Municion_Cls
                         %fwrite(device,'B')
                     end
                     T_Evento= (ssim(Evento,snapshot1));
-                    if(T_Evento > (0.92) || T_PP > (0.89642) || T_AcercaInforme > (0.92))
+                    if(T_Evento > (0.92) || T_PP > (0.89643) || T_AcercaInforme > (0.92))
                         rob.keyPress(KeyEvent.VK_C)
                         pause(0.1);
                         rob.keyRelease(KeyEvent.VK_C   )
                         display("T_Evento VK_C");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        
-                        delete(job);
-                        clear job
-                        
-                        
                         lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_Evento "+ T_Evento +" "+"T_PP "+ T_PP +" "+"T_AcercaInforme "+ T_AcercaInforme;
                         dtLastAct=now;
-                        if(T_PP> (0.89642))
+                        if(T_PP> (0.89643))
                             pause(0.5);
                             rob.keyPress(KeyEvent.VK_1 )
-                            pause(0.1);
+                            pause(0.3);
                             rob.keyRelease(KeyEvent.VK_1  )
                             pause(0.1);
                             display("T_PP VK_1");
@@ -422,11 +467,6 @@ classdef Municion_Cls
                         pause(0.1);
                         display("T_Soldados VK_C");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
-                        
-                        delete(job);
-                        clear job
-                        
-                        
                         lastActivity= datestr(now, 'dd/mm/yy-HH:MM')+" T_Soldados "+ T_Soldados +" "+"T_Ataquetome "+ T_Ataquetome;
                         dtLastAct=now;
                         T_Soldados=0;
@@ -455,7 +495,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                        
+                       
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -498,73 +538,6 @@ classdef Municion_Cls
                 pause(1);
             end
             
-        end
-        function getIT
-            while 1
-                if(none==true)
-                    % fwrite(device,'A')
-                    display("BATCH");
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_F   )
-                    pause(0.1);
-                    
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    %    rob.keyPress(KeyEvent.VK_V  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_V  )
-                    %    display("none VK_V");
-                    
-                    %    rob.keyPress(KeyEvent.VK_RIGHT  )
-                    %    pause(0.1);
-                    %    rob.keyPress(KeyEvent.VK_DOWN  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_RIGHT  )
-                    %    rob.keyRelease(KeyEvent.VK_DOWN  )
-                    %    display("none VK_V");
-                    %    rob.keyPress(KeyEvent.VK_V  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_V  )
-                    %    display("none VK_V");
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    display(" VK_R");
-                    pause(0.1);
-                else
-                    %fwrite(device,'B')
-                end
-            end
         end
     end
 end
