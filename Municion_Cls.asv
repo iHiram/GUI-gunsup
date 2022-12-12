@@ -4,7 +4,6 @@ classdef Municion_Cls
             
             import java.awt.*;
             import java.awt.event.*;
-            import getItems.*;
             rob=Robot;
             if(inicio==1)
                 
@@ -14,8 +13,6 @@ classdef Municion_Cls
                 none=false;rob.keyRelease(KeyEvent.VK_F);
             end
             
-            display("ssssssssss");
-            job = batch('getItems');
             T_MP=0;
             T_MBs=0;
             T_BT=0;
@@ -119,6 +116,7 @@ classdef Municion_Cls
                     dt = t1 - dtLastAct
                     display(dt);
                     
+                    job = batch('getItems');
                     if(dt > 0.024232)
                         display("late ");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
@@ -499,72 +497,6 @@ classdef Municion_Cls
             end
             
         end
-        function getIT
-            while 1
-                if(none==true)
-                    % fwrite(device,'A')
-                    display("BATCH");
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_F   )
-                    pause(0.1);
-                    
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    %    rob.keyPress(KeyEvent.VK_V  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_V  )
-                    %    display("none VK_V");
-                    
-                    %    rob.keyPress(KeyEvent.VK_RIGHT  )
-                    %    pause(0.1);
-                    %    rob.keyPress(KeyEvent.VK_DOWN  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_RIGHT  )
-                    %    rob.keyRelease(KeyEvent.VK_DOWN  )
-                    %    display("none VK_V");
-                    %    rob.keyPress(KeyEvent.VK_V  )
-                    %    pause(0.1);
-                    %    rob.keyRelease(KeyEvent.VK_V  )
-                    %    display("none VK_V");
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    pause(0.1);
-                    rob.keyPress(KeyEvent.VK_R  )
-                    pause(0.1);
-                    rob.keyRelease(KeyEvent.VK_R   )
-                    display(" VK_R");
-                    pause(0.1);
-                else
-                    %fwrite(device,'B')
-                end
-            end
-        end
+        function init
     end
 end
