@@ -1,7 +1,7 @@
 classdef Municion_Cls
     methods (Access = public, Static)
         function init(app,value,inicio)
-            
+            which -all getItems
             import java.awt.*;
             import java.awt.event.*;
             rob=Robot;
@@ -12,7 +12,8 @@ classdef Municion_Cls
                 
                 none=false;rob.keyRelease(KeyEvent.VK_F);
             end
-            
+            c = parcluster(); % Use default profile
+            j = createJob(c);
             T_MP=0;
             T_MBs=0;
             T_BT=0;
@@ -108,6 +109,8 @@ classdef Municion_Cls
             AcercaInforme=im2uint8(AcercaInforme);
             dtLastAct=now;
             late=0;
+            jobCreado=false;
+            
             while value
                 tic
                 while 1
@@ -115,6 +118,16 @@ classdef Municion_Cls
                     t1 = now;
                     dt = t1 - dtLastAct
                     display(dt);
+                    if(jobCreado == false && none==true)
+                        j = createJob(c);
+                        t = createTask(j, @getItems, 1, {});
+                        submit(j);
+                        jobCreado=true
+                    end
+                    if(jobCreado == true && none==false)
+                        delete(j);
+                        jobCreado=false
+                    end
                     if(dt > 0.024232)
                         display("late ");
                         none=false;rob.keyRelease(KeyEvent.VK_F);
@@ -309,7 +322,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -405,7 +418,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
@@ -495,7 +508,7 @@ classdef Municion_Cls
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_F   )
                         pause(0.1);
-                       
+                        
                         pause(0.1);
                         rob.keyPress(KeyEvent.VK_R  )
                         pause(0.1);
